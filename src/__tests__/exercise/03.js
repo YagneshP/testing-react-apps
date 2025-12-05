@@ -18,8 +18,8 @@ test('counter increments and decrements when the buttons are clicked', async () 
 
   expect(message).toHaveTextContent('Current count: 0')
 
-  await user.click(increment)
+  await userEvent.click(increment)
   expect(message).toHaveTextContent('Current count: 1')
-  await user.click(decrement)
+  await userEvent.click(decrement)
   expect(message).toHaveTextContent('Current count: 0')
 })
