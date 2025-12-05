@@ -5,14 +5,25 @@ import * as React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Login from '../../components/login'
-import faker from 'faker'
-function buildLoginForm(overrides) {
-  return {
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    ...overrides, // allows us to override defaults like buildLoginForm({username: 'yagnesh'})
-  }
-}
+import {build, fake} from '@jackfranklin/test-data-bot'
+
+// Creating a test data builder for login form
+// to generate realistic username and password
+// you can use now https://github.com/Stivooo/mimicry-js
+// @jackfranklin/test-data-bot is not maintained anymore
+const buildLoginForm = build({
+  fields: {
+    username: fake(f => f.internet.userName()),
+    password: fake(f => f.internet.password()),
+  },
+})
+// function buildLoginForm(overrides) {
+//   return {
+//     username: faker.internet.userName(),
+//     password: faker.internet.password(),
+//     ...overrides, // allows us to override defaults like buildLoginForm({username: 'yagnesh'})
+//   }
+// }
 test('submitting the form calls onSubmit with username and password', async () => {
   //mocking function using jest
   const handleSubmit = jest.fn()
