@@ -6,10 +6,11 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Login from '../../components/login'
 import faker from 'faker'
-function buildLoginForm() {
+function buildLoginForm(overrides) {
   return {
     username: faker.internet.userName(),
     password: faker.internet.password(),
+    ...overrides, // allows us to override defaults like buildLoginForm({username: 'yagnesh'})
   }
 }
 test('submitting the form calls onSubmit with username and password', async () => {
