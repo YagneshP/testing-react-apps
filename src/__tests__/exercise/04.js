@@ -8,8 +8,8 @@ import Login from '../../components/login'
 
 test('submitting the form calls onSubmit with username and password', async () => {
   let submittedData
-
-  const handleSubmit = data => (submittedData = data)
+  //mocking function using jest
+  const handleSubmit = jest.fn()
 
   render(<Login onSubmit={handleSubmit} />)
 
@@ -22,10 +22,11 @@ test('submitting the form calls onSubmit with username and password', async () =
   const submitButton = screen.getByRole('button', {name: /submit/i})
   await userEvent.click(submitButton)
 
-  expect(submittedData).toEqual({
+  expect(handleSubmit).toHaveBeenCalledWith({
     username,
     password,
   })
+  expect(handleSubmit).toHaveBeenCalledTimes(1)
   // 💰 use `toEqual` from Jest: 📜 https://jestjs.io/docs/en/expect#toequalvalue
 })
 
