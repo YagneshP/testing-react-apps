@@ -33,3 +33,15 @@ test('submitting the form calls onSubmit with username and password', async () =
 eslint
   no-unused-vars: "off",
 */
+
+/**
+ * My Learning Notes:
+ *
+ * - This exercise demonstrates how to test form submissions in React components using React Testing Library and Jest.
+ * - The test simulates user interactions by typing into input fields and clicking the submit button.
+ * - The `userEvent` library is used to mimic real user behavior more closely than the basic `fireEvent`.
+ * - After submitting the form, the test checks that the `onSubmit` handler was called with the correct data.
+ * - The `toEqual` matcher from Jest is used to compare objects for deep equality.
+ * - screen.debug() can be used to print the current state of the DOM for debugging purposes.
+ * - kent used crome extension for selecting the elements
+ */
