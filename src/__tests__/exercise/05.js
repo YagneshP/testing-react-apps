@@ -37,13 +37,28 @@ test(`logging in displays the user's username`, async () => {
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
   // screen.debug()
   expect(screen.getByText(username)).toBeInTheDocument()
-  // fill out the username and password fields and click the submit button
-  // as soon as the user hits submit, we render a spinner to the screen. That
-  // spinner has an aria-label of "loading" for accessibility purposes, so
-  // 🐨 wait for the loading spinner to be removed using waitForElementToBeRemoved
-  // 📜 https://testing-library.com/docs/dom-testing-library/api-async#waitforelementtoberemoved
+})
+test(`error when password not provided`, async () => {
+  render(<Login />)
+  const {username} = buildLoginForm()
 
-  // once the login is successful, then the loading spinner disappears and
-  // we render the username.
-  // 🐨 assert that the username is on the screen
+  await userEvent.type(screen.getByLabelText(/username/i), username)
+  await userEvent.click(screen.getByRole('button', {name: /submit/i}))
+  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
+  // screen.debug()
+  expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+    `"password required"`,
+  )
+})
+test(`error when username not provided`, async () => {
+  render(<Login />)
+  const {password} = buildLoginForm()
+
+  await userEvent.type(screen.getByLabelText(/password/i), password)
+  await userEvent.click(screen.getByRole('button', {name: /submit/i}))
+  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
+  // screen.debug()
+  expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+    `"username required"`,
+  )
 })
