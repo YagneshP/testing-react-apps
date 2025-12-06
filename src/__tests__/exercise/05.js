@@ -8,6 +8,7 @@ import {build, fake} from '@jackfranklin/test-data-bot'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import Login from '../../components/login-submission'
+import {handlers} from '../../test/server-handlers'
 
 const buildLoginForm = build({
   fields: {
@@ -19,21 +20,7 @@ const buildLoginForm = build({
 // 🐨 get the server setup with an async function to handle the login POST request:
 // 💰 here's something to get you started
 
-const server = setupServer(
-  rest.post(
-    'https://auth-provider.example.com/api/login',
-    async (req, res, ctx) => {
-      return res(
-        // respond with a 200 status code
-        ctx.status(200),
-        // and a JSON object
-        ctx.json({
-          username: req.body.username,
-        }),
-      )
-    },
-  ),
-)
+const server = setupServer(...handlers)
 
 beforeAll(() => server.listen())
 // afterEach(() => server.resetHandlers())
