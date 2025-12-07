@@ -7,16 +7,30 @@ import userEvent from '@testing-library/user-event'
 import useCounter from '../../components/use-counter'
 
 // 🐨 create a simple function component that uses the useCounter hook
-// and then exposes some UI that our test can interact with to test the
-// capabilities of this hook
-// 💰 here's how to use the hook:
-// const {count, increment, decrement} = useCounter()
+function Counter() {
+  const {count, increment, decrement} = useCounter()
+  return (
+    <div>
+      <div>Count: {count}</div>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  )
+}
 
-test('exposes the count and increment/decrement functions', () => {
-  // 🐨 render the component
-  // 🐨 get the elements you need using screen
-  // 🐨 assert on the initial state of the hook
-  // 🐨 interact with the UI using userEvent and assert on the changes in the UI
+test('exposes the count and increment/decrement functions', async () => {
+  render(<Counter />)
+  const count = screen.getByText(/Count:/)
+  const incrementButton = screen.getByText('Increment')
+  const decrementButton = screen.getByText('Decrement')
+
+  expect(count).toHaveTextContent('Count: 0')
+
+  await userEvent.click(incrementButton)
+  expect(count).toHaveTextContent('Count: 1')
+
+  await userEvent.click(decrementButton)
+  expect(count).toHaveTextContent('Count: 0')
 })
 
 /* eslint no-unused-vars:0 */
