@@ -28,15 +28,23 @@ function deferred() {
 test('displays the users current location', async () => {
   // 🐨 create a fakePosition object that has an object called "coords" with latitude and longitude
   // 📜 https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition
-  //
+  const fakePosition = {
+    coords: {
+      latitude: 51.1,
+      longitude: 45.3,
+    },
+  }
   // 🐨 create a deferred promise here
-  //
+  const {promise, resolve, reject} = deferred()
   // 🐨 Now we need to mock the geolocation's getCurrentPosition function
   // To mock something you need to know its API and simulate that in your mock:
   // 📜 https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
   //
   // here's an example of the API:
   // function success(position) {}
+  // jest.spyOn(navigator.geolocation, 'getCurrentPosition').mockImplementation((success) => {
+  //   promise.then(() => success(fakePosition))
+  // })
   // function error(error) {}
   // navigator.geolocation.getCurrentPosition(success, error)
   //
