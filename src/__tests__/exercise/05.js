@@ -64,7 +64,7 @@ test(`error when username not provided`, async () => {
 })
 
 test(`error when server is down`, async () => {
-  const testErrorMessage = 'oops!something went wrong '
+  const testErrorMessage = 'oops!something went wrong'
   server.use(
     rest.post(
       'https://auth-provider.example.com/api/login',
@@ -78,7 +78,7 @@ test(`error when server is down`, async () => {
   await userEvent.click(screen.getByRole('button', {name: /submit/i}))
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
   // screen.debug()
-  expect(screen.getByRole('alert').toHaveTextContent(testErrorMessage))
+  expect(screen.getByRole('alert')).toHaveTextContent(testErrorMessage)
 })
 
 /**
